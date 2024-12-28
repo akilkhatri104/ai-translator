@@ -13,8 +13,8 @@ import {HumanMessage,SystemMessage} from '@langchain/core/messages'
 
 class Model{
     constructor(){
-        this.credentials = import.meta.env.VITE_GOOGLE_CREDENTIALS
-        this.googleApiKey = import.meta.env.VITE_GOOGLE_API_KEY
+        this.credentials = import.meta.env.VITE_GOOGLE_WEB_CREDENTIALS
+        // this.googleApiKey = import.meta.env.VITE_GOOGLE_API_KEY
         this.id = import.meta.env.VITE_GOOGLE_PROJECT_ID
         this.model = new ChatVertexAI({
             model: 'gemini-1.5-flash',
