@@ -20,7 +20,7 @@ class Model{
             model: 'gemini-1.5-flash',
             temperature: 0,
             authOptions: {
-                credentials: JSON.parse(this.credentials)
+                credentials: this.credentials
             },
             // apiKey: this.googl   eApiKey,
             projectId: this.id,
