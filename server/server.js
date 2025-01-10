@@ -5,16 +5,16 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const corsOptions = {
-    origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow the necessary HTTP methods
-    credentials: true, // Allow cookies or authorization headers
-}
+// const corsOptions = {
+//     origin: process.env.CLIENT_URL,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow the necessary HTTP methods
+//     credentials: true, // Allow cookies or authorization headers
+// }
 
 const app = express()
 const port = 3000
 
-app.use(cors(corsOptions))
+app.use(cors())
 
 app.get('/', (req, res) => {
     console.log('Received GET request at /')
