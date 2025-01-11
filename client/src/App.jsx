@@ -11,7 +11,6 @@ function App() {
   const [translating,setTranslating] = useState(false)
   const apiUrl = import.meta.env.VITE_BACKEND_URL;
   console.log('API URL:', apiUrl);
-  
   const axiosInstance = axios.create({
     baseURL: apiUrl, // Backend URL
     withCredentials: true, // Include cookies or auth headers if needed
@@ -30,7 +29,7 @@ function App() {
     try {
       if (from === 'detect') {
         console.log('Detecting language');
-        const detectedLanguage = await axiosInstance.get('http://localhost:3000/detect', {
+        const detectedLanguage = await axiosInstance.get('/detect', {
           params: {
             text,
           },
@@ -48,7 +47,7 @@ function App() {
 
       if (from !== 'detect') {
         console.log('Translating text');
-        const translation = await axiosInstance.get('http://localhost:3000/translate', {
+        const translation = await axiosInstance.get('/translate', {
           params: {
             from:sourceLang,
             to,
