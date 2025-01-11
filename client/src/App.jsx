@@ -9,8 +9,11 @@ function App() {
   const [toValue, setToValue] = useState('');
   const [fromValue, setFromValue] = useState('');
   const [translating,setTranslating] = useState(false)
+  const apiUrl = import.meta.env.VITE_BACKEND_URL;
+  console.log('API URL:', apiUrl);
+  
   const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL, // Backend URL
+    baseURL: apiUrl, // Backend URL
     withCredentials: true, // Include cookies or auth headers if needed
   });
 
