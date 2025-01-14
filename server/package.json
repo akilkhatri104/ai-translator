@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@langchain/core": "^0.3.27",
-    "@langchain/google-vertexai": "^0.1.6",
+    "@langchain/google-vertexai-web": "^0.1.8",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

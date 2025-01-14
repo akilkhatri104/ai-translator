@@ -28,7 +28,7 @@ app.get('/translate', async(req, res) => {
         console.log('Request parameters:', {from, to, text})
         const result = await model.translate({from, to, text})
         console.log('Translation result:', result)
-        res.send(result)
+        res.json(result)
     } catch (error) {
         console.error('Error during translation:', error)
         app.send(error.message)

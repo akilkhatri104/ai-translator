@@ -1,34 +1,48 @@
-import { ChatVertexAI } from "@langchain/google-vertexai";
+import { ChatVertexAI } from "@langchain/google-vertexai-web";
 import { HumanMessage,SystemMessage } from "@langchain/core/messages";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
 import dotenv from "dotenv"
 
 dotenv.config()
 
 class Model{
     constructor(){
-        
+        this.credentials = String(process.env.GOOGLE_WEB_CREDENTIALS)
+        this.projectId = String(process.env.GOOGLE_PROJECT_ID)
         this.model = new ChatVertexAI({
-            model: "gemini-1.5-flash",
+            model: "gemini-2.0-flash-exp",
             temperature: 0,
+            authOptions: {
+                credentials: this.credentials,
+            },
+            projectId: this.projectId,
             
           });
     }
 
     async translate({from,to,text}){
         try {
-            const messages = [
-                new SystemMessage(`translate the following text from ${from} to ${to},only respond with translation`),
-                new HumanMessage(text)
-            ]
+            const systemTemplate = "Translate the following from {from} into {to} and only return the translation without any other text,not even new line charactor";
+            const promptTemplate = ChatPromptTemplate.fromMessages([
+                ["system", systemTemplate],
+                ["user", "{text}"],
+              ]);
+            
+            const prompt = await promptTemplate.invoke({
+                from,
+                to,
+                text
+            })
 
-            const res = await this.model.invoke(messages)
+            const res = await this.model.invoke(prompt)
 
             if(res){
                 console.log(res);
-                return res.content
+                return res
             }
         } catch (error) {
-            console.log("Model :: translate :: ",error);
+            console.log("Model :: translate :: ",error.message);
+            console.log("Model :: translate :: ",error.stack);
         }
     }
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import langData from './language.json'
 import {InputBox,Container} from './components'
 import axios from 'axios'
+import { use } from 'react';
 
 function App() {
   const [to, setTo] = useState(langData['hi']);
@@ -9,6 +10,7 @@ function App() {
   const [toValue, setToValue] = useState('');
   const [fromValue, setFromValue] = useState('');
   const [translating,setTranslating] = useState(false)
+  const [error,setError] = useState('')
   const apiUrl = import.meta.env.VITE_BACKEND_URL;
   console.log('API URL:', apiUrl);
   const axiosInstance = axios.create({
@@ -20,6 +22,7 @@ function App() {
 
   const handleTranslation = async (text = '') => {
     setTranslating(true)
+    setError('')
     console.log('From:', from);
     console.log('To:', to);
     console.log('FromValue:', text);
@@ -57,15 +60,17 @@ function App() {
         console.log('Translation response:', translation);
         console.log('Translation data:', translation.data);
         if (translation && translation.data) {
-          setToValue(translation.data);
+          setToValue(translation.data.kwargs.content);
           console.log('Translated text set to:', toValue);
         }
       }
 
-      setTranslating(false)
+      
     } catch (error) {
       console.error('Error during translation:', error);
+      setError(error.message)
     }
+    setTranslating(false)
   };
 
   return (
@@ -73,14 +78,14 @@ function App() {
       <Container className={'text-white'}>
         <h1 className='text-[2em] text-center '>AI Translator</h1>
         <Container className={'flex justify-center'}>
-          <img src='../assets/github_svg.svg' className='w-6 invert'/>
+          <img src='/github.svg' alt="Github Logo" className='w-6 invert'/>
           <a href="https://github.com/akilkhatri104/" target='_blank' className='px-2'>
           Github</a>
 
-          <img src='../assets/linkedin.svg' className='w-6 invert' />
+          <img src='/linkedin.svg' alt="Linkedin Logo" className='w-6 invert' />
           <a href="https://www.linkedin.com/in/akil-khatri-70a445319/" target='_blank' className='px-2'>Linkedin</a>
 
-          <img src='../assets/twitter_x_svg.svg' className='w-6 invert'/>
+          <img src='/twitter.svg' alt="Twitter Logo" className='w-6 invert'/>
           <a href="https://x.com/AkilKhatri61892" target='_blank' className='px-2'>Twitter</a>
         </Container>
       </Container>
@@ -102,6 +107,12 @@ function App() {
         {
           translating && (
             <p className='text-black text-center text-lg p-2'>Translating...</p>
+          )
+        }
+
+        {
+          error && (
+            <p className='text-red-600 text-center text-lg p-2'>{error}</p>
           )
         }
         
