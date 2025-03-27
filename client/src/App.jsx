@@ -75,6 +75,9 @@ function App() {
 
   return (
     <Container className={'bg-blue-500 w-full overflow-hidden min-h-screen ' }>
+      <Container>
+        <h3 className='text-white text-center bg-red-600 p-4'>Currently the Google Cloud API is not working, due to which the translation is not working</h3>
+      </Container>
       <Container className={'text-white'}>
         <h1 className='text-[2em] text-center '>AI Translator</h1>
         <Container className={'flex justify-center'}>

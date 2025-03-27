@@ -10,7 +10,7 @@ class Model{
         this.credentials = String(process.env.GOOGLE_WEB_CREDENTIALS)
         this.projectId = String(process.env.GOOGLE_PROJECT_ID)
         this.model = new ChatVertexAI({
-            model: "gemini-2.0-flash-exp",
+            model: String(process.env.GEMINI_MODEL),
             temperature: 0,
             authOptions: {
                 credentials: this.credentials,
